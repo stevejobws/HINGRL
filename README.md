@@ -16,3 +16,6 @@ To predict drug-disease associations by HINGRL, run
 ### Requirements
 HINGRL is tested to work under Python 3.6.2  
 The required dependencies for HINGRL  are Keras, PyTorch, TensorFlow, numpy, pandas, scipy, and scikit-learn.
+
+### Contacts
+If you have any questions or comments, please feel free to email BoWei Zhao (stevejobwes[at]gmail[dot]com).
