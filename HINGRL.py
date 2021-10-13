@@ -1,20 +1,13 @@
 # coding: utf-8
 import pandas as pd
 
-DrDiNum18416 = pd.read_csv('./data/HINGE_DrugDieaseNum18416.csv',header=None)
-DrPrNum3243 = pd.read_csv('./data/HINGE_DrugProteinNum18416.csv',header=None)
-DiPrNum71840 = pd.read_csv('./data/HINGE_DiseaseProteinNum18416.csv',header=None)
+DrDiNum18416 = pd.read_csv('./data/B-Dataset/HINGE_DrugDieaseNum18416.csv',header=None)
+DrPrNum3243 = pd.read_csv('./data/B-Dataset/HINGE_DrugProteinNum18416.csv',header=None)
+DiPrNum71840 = pd.read_csv('./data/B-Dataset/HINGE_DiseaseProteinNum18416.csv',header=None)
 
 import math
 import random
 def partition(ls, size):
-    """
-    Returns a new list with elements
-    of which is a list of certain size.
-
-        >>> partition([1, 2, 3, 4], 3)
-        [[1, 2, 3], [4]]
-    """
     return [ls[i:i+size] for i in range(0, len(ls), size)]
 RandomList = random.sample(range(0, len(DrDiNum18416)), len(DrDiNum18416))
 print('len(RandomList)', len(RandomList))
@@ -24,11 +17,11 @@ print('len(NewRandomList[0])', len(NewRandomList[0]))
 NewRandomList = pd.DataFrame(NewRandomList)
 NewRandomList = NewRandomList.fillna(int(0))
 NewRandomList = NewRandomList.astype(int)
-NewRandomList.to_csv('./data/10-CV/HINGE_NewRandomList18416.csv', header=None,index=False)
+NewRandomList.to_csv('./data/HINGE_NewRandomList18416.csv', header=None,index=False)
 del NewRandomList, RandomList
 
 import numpy as np
-Nindex = pd.read_csv('./data/10-CV/HINGE_NewRandomList18416.csv',header=None)
+Nindex = pd.read_csv('./data/HINGE_NewRandomList18416.csv',header=None)
 for i in range(len(Nindex)):
     kk = []
     for j in range(10):
@@ -37,20 +30,19 @@ for i in range(len(Nindex)):
     index = np.hstack([np.array(Nindex)[kk[0]],np.array(Nindex)[kk[1]],np.array(Nindex)[kk[2]],np.array(Nindex)[kk[3]],np.array(Nindex)[kk[4]],
                        np.array(Nindex)[kk[5]],np.array(Nindex)[kk[6]],np.array(Nindex)[kk[7]],np.array(Nindex)[kk[8]]])
     DTIs_train= pd.DataFrame(np.array(DrDiNum18416)[index])
-    DTIs_train.to_csv('./data/10-CV/DrDiIs_train'+str(i)+'.csv', header=None,index=False)
+    DTIs_train.to_csv('./data/DrDiIs_train'+str(i)+'.csv', header=None,index=False)
     DTIs_train = DTIs_train.append(DrPrNum3243.append(DiPrNum71840))
     DTIs_train = DTIs_train.sample(frac=1.0)
-    DTIs_train.to_csv('./data/10-CV/DrDiIs_train'+str(i)+'.txt', sep='\t' ,header=None,index=False)
+    DTIs_train.to_csv('./data/DrDiIs_train'+str(i)+'.txt', sep='\t' ,header=None,index=False)
     DTIs_test=pd.DataFrame(np.array(DrDiNum18416)[np.array(Nindex)[i]])
-    DTIs_test.to_csv('./data/10-CV/DrDiIs_test'+str(i)+'.csv', header=None,index=False)
+    DTIs_test.to_csv('./data/DrDiIs_test'+str(i)+'.csv', header=None,index=False)
     print(i)
 del Nindex, index, DTIs_train, DTIs_test
 
 import numpy as np
 DTIs_train = DrDiNum18416.append(DrPrNum3243.append(DiPrNum71840))
 DTIs_train = DTIs_train.sample(frac=1.0)
-DTIs_train.to_csv('./data/allfeature/AllDrDiIs_train.txt', sep='\t' ,header=None,index=False)
-DTIs_train
+DTIs_train.to_csv('./data/AllDrDiIs_train18416.txt', sep='\t' ,header=None,index=False)
 
 
 def NegativeGenerate(LncDisease, AllRNA,AllDisease):
@@ -88,28 +80,27 @@ def NegativeGenerate(LncDisease, AllRNA,AllDisease):
             NegativeSample.append(NamePair)
             counterN = counterN + 1
     return NegativeSample
-Dr = pd.read_csv('./data/HINGE_drugName18416.csv',header=0,names=['id','name'])
-Pr = pd.read_csv('./data/HINGE_diseaseName18416.csv',header=0,names=['id','name'])
+Dr = pd.read_csv('./data/B-Dataset/HINGE_drugName18416.csv',header=0,names=['id','name'])
+Pr = pd.read_csv('./data/B-Dataset/HINGE_diseaseName18416.csv',header=0,names=['id','name'])
 NegativeSample = NegativeGenerate(DrDiNum18416.values.tolist(),Dr['id'].values.tolist(),Pr['id'].values.tolist())
 NegativeSample = pd.DataFrame(NegativeSample)
-NegativeSample.to_csv('./data/10-CV/HINGE_NegativeSample.csv', header=None,index=False)
-NegativeSample
+NegativeSample.to_csv('./data/HINGE_NegativeSample18416.csv', header=None,index=False)
 
 import scipy.sparse as sp
 import pandas as pd
 import numpy as np
 creat_var = locals()
 creat_var = locals()
-Negative = pd.read_csv('./data/10-CV/HINGE_NegativeSample.csv',header=None)
-Nindex = pd.read_csv('./data/10-CV/HINGE_NewRandomList18416.csv',header=None)
-Attribute = pd.read_csv('./data/HINGE_AllNodeAttribute18416.csv',header = None, index_col=0)
+Negative = pd.read_csv('./data/HINGE_NegativeSample18416.csv',header=None)
+Nindex = pd.read_csv('./data/HINGE_NewRandomList18416.csv',header=None)
+Attribute = pd.read_csv('./data/B-Dataset/HINGE_AllNodeAttribute18416.csv',header = None, index_col=0)
 Attribute = Attribute.iloc[:,1:]
-Embedding = pd.read_csv('./data/allfeature/AllEmbedding_DeepWalk.txt', sep=' ',header=None,skiprows=1)
+Embedding = pd.read_csv('./data/AllEmbedding_DeepWalk18416.txt', sep=' ',header=None,skiprows=1)
 Embedding = Embedding.sort_values(0,ascending=True)
 Embedding.set_index([0], inplace=True)
 Negative[2] = Negative.apply(lambda x: 0 if x[0] < 0 else 0, axis=1)
 for i in range(10):
-    train_data = pd.read_csv('./data/10-CV/DrDiIs_train'+str(i)+'.csv',header=None)
+    train_data = pd.read_csv('./data/DrDiIs_train'+str(i)+'.csv',header=None)
     train_data[2] = train_data.apply(lambda x: 1 if x[0] < 0 else 1, axis=1)
     kk = []
     for j in range(10):
@@ -126,7 +117,7 @@ for i in range(10):
     creat_var['labels_train'+str(i)] = labels_train
     print(len(labels_train))
     del labels_train, result, data_train_feature
-    test_data = pd.read_csv('./data/10-CV/DrDiIs_test'+str(i)+'.csv',header=None)
+    test_data = pd.read_csv('./data/DrDiIs_test'+str(i)+'.csv',header=None)
     test_data[2] = test_data.apply(lambda x: 1 if x[0] < 0 else 1, axis=1)
     result = test_data.append(pd.DataFrame(np.array(Negative)[np.array(Nindex)[i]]))    
     labels_test = result[2]
@@ -187,6 +178,9 @@ for i in range(10):
     #auc
     roc_auc=auc(fpr,tpr)
     aucs.append(roc_auc)
-    print('ROC fold %d(AUC=%0.4f)'% (i,roc_auc))   
-
-
+    print('ROC fold %d(AUC=%0.4f)'% (i,roc_auc)) 
+    
+mean_tpr=np.mean(tprs,axis=0)
+mean_tpr[-1]=1.0
+mean_auc=auc(mean_fpr,mean_tpr)
+print('Mean ROC (AUC=%0.4f)'% (mean_auc)) 
