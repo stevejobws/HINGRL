@@ -5,7 +5,7 @@
 Contain  B-Dataset and F-Dataset
 
 ### install OpenNE
-1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) of OpenNE-master configuration environment
+1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) configuration environment
 2. To obtained drug and disease features by deepWalk, run
   - python -m openne --method deepWalk --input data/AllDrDiIs_train.txt --graph-format edgelist --output AllEmbedding_DeepWalk.txt --representation-size 64
 
