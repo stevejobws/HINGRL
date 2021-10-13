@@ -1,9 +1,10 @@
 # coding: utf-8
 import pandas as pd
 
-DrDiNum18416 = pd.read_csv('./data/B-Dataset/HINGE_DrugDieaseNum18416.csv',header=None)
-DrPrNum3243 = pd.read_csv('./data/B-Dataset/HINGE_DrugProteinNum18416.csv',header=None)
-DiPrNum71840 = pd.read_csv('./data/B-Dataset/HINGE_DiseaseProteinNum18416.csv',header=None)
+
+DrDiNum18416 = pd.read_csv('./data/B-Dataset/HINGRL_DrugDieaseNum18416.csv',header=None)
+DrPrNum3243 = pd.read_csv('./data/B-Dataset/HINGRL_DrugProteinNum18416.csv',header=None)
+DiPrNum71840 = pd.read_csv('./data/B-Dataset/HINGRL_DiseaseProteinNum18416.csv',header=None)
 
 import math
 import random
@@ -17,11 +18,11 @@ print('len(NewRandomList[0])', len(NewRandomList[0]))
 NewRandomList = pd.DataFrame(NewRandomList)
 NewRandomList = NewRandomList.fillna(int(0))
 NewRandomList = NewRandomList.astype(int)
-NewRandomList.to_csv('./data/HINGE_NewRandomList18416.csv', header=None,index=False)
+NewRandomList.to_csv('./data/HINGRL_NewRandomList18416.csv', header=None,index=False)
 del NewRandomList, RandomList
 
 import numpy as np
-Nindex = pd.read_csv('./data/HINGE_NewRandomList18416.csv',header=None)
+Nindex = pd.read_csv('./data/HINGRL_NewRandomList18416.csv',header=None)
 for i in range(len(Nindex)):
     kk = []
     for j in range(10):
@@ -31,9 +32,6 @@ for i in range(len(Nindex)):
                        np.array(Nindex)[kk[5]],np.array(Nindex)[kk[6]],np.array(Nindex)[kk[7]],np.array(Nindex)[kk[8]]])
     DTIs_train= pd.DataFrame(np.array(DrDiNum18416)[index])
     DTIs_train.to_csv('./data/DrDiIs_train'+str(i)+'.csv', header=None,index=False)
-    DTIs_train = DTIs_train.append(DrPrNum3243.append(DiPrNum71840))
-    DTIs_train = DTIs_train.sample(frac=1.0)
-    DTIs_train.to_csv('./data/DrDiIs_train'+str(i)+'.txt', sep='\t' ,header=None,index=False)
     DTIs_test=pd.DataFrame(np.array(DrDiNum18416)[np.array(Nindex)[i]])
     DTIs_test.to_csv('./data/DrDiIs_test'+str(i)+'.csv', header=None,index=False)
     print(i)
@@ -45,20 +43,20 @@ DTIs_train = DTIs_train.sample(frac=1.0)
 DTIs_train.to_csv('./data/AllDrDiIs_train18416.txt', sep='\t' ,header=None,index=False)
 
 
-def NegativeGenerate(LncDisease, AllRNA,AllDisease):
+def NegativeGenerate(DrugDisease, AllDurg,AllDisease):
     import random
     NegativeSample = []
     counterN = 0
-    while counterN < len(LncDisease): 
-        counterR = random.randint(0, len(AllRNA) - 1)
+    while counterN < len(DrugDisease):
+        counterR = random.randint(0, len(AllDurg) - 1)
         counterD = random.randint(0, len(AllDisease) - 1)
         DiseaseAndRnaPair = []
-        DiseaseAndRnaPair.append(AllRNA[counterR])
+        DiseaseAndRnaPair.append(AllDurg[counterR])
         DiseaseAndRnaPair.append(AllDisease[counterD])
         flag1 = 0
         counter = 0
-        while counter < len(LncDisease):
-            if DiseaseAndRnaPair == LncDisease[counter]:
+        while counter < len(DrugDisease):
+            if DiseaseAndRnaPair == DrugDisease[counter]:
                 flag1 = 1
                 break
             counter = counter + 1
@@ -66,7 +64,7 @@ def NegativeGenerate(LncDisease, AllRNA,AllDisease):
             continue
         flag2 = 0
         counter1 = 0
-        while counter1 < len(NegativeSample): 
+        while counter1 < len(NegativeSample):
             if DiseaseAndRnaPair == NegativeSample[counter1]:
                 flag2 = 1
                 break
@@ -74,28 +72,27 @@ def NegativeGenerate(LncDisease, AllRNA,AllDisease):
         if flag2 == 1:
             continue
         if (flag1 == 0 & flag2 == 0):
-            NamePair = [] 
-            NamePair.append(AllRNA[counterR])
+            NamePair = []
+            NamePair.append(AllDurg[counterR])
             NamePair.append(AllDisease[counterD])
             NegativeSample.append(NamePair)
             counterN = counterN + 1
     return NegativeSample
-Dr = pd.read_csv('./data/B-Dataset/HINGE_drugName18416.csv',header=0,names=['id','name'])
-Pr = pd.read_csv('./data/B-Dataset/HINGE_diseaseName18416.csv',header=0,names=['id','name'])
+Dr = pd.read_csv('./data/B-Dataset/HINGRL_drugName18416.csv',header=0,names=['id','name'])
+Pr = pd.read_csv('./data/B-Dataset/HINGRL_diseaseName18416.csv',header=0,names=['id','name'])
 NegativeSample = NegativeGenerate(DrDiNum18416.values.tolist(),Dr['id'].values.tolist(),Pr['id'].values.tolist())
 NegativeSample = pd.DataFrame(NegativeSample)
-NegativeSample.to_csv('./data/HINGE_NegativeSample18416.csv', header=None,index=False)
+NegativeSample.to_csv('./data/HINGRL_NegativeSample18416.csv', header=None,index=False)
 
 import scipy.sparse as sp
-import pandas as pd
 import numpy as np
 creat_var = locals()
 creat_var = locals()
-Negative = pd.read_csv('./data/HINGE_NegativeSample18416.csv',header=None)
-Nindex = pd.read_csv('./data/HINGE_NewRandomList18416.csv',header=None)
-Attribute = pd.read_csv('./data/B-Dataset/HINGE_AllNodeAttribute18416.csv',header = None, index_col=0)
+Negative = pd.read_csv('./data/HINGRL_NegativeSample18416.csv',header=None)
+Nindex = pd.read_csv('./data/HINGRL_NewRandomList18416.csv',header=None)
+Attribute = pd.read_csv('./data/B-Dataset/HINGRL_AllNodeAttribute18416.csv',header = None, index_col=0)
 Attribute = Attribute.iloc[:,1:]
-Embedding = pd.read_csv('./data/AllEmbedding_DeepWalk18416.txt', sep=' ',header=None,skiprows=1)
+Embedding = pd.read_csv('./data/B-Dataset/AllEmbedding_DeepWalk18416.txt', sep=' ',header=None,skiprows=1)
 Embedding = Embedding.sort_values(0,ascending=True)
 Embedding.set_index([0], inplace=True)
 Negative[2] = Negative.apply(lambda x: 0 if x[0] < 0 else 0, axis=1)
@@ -142,34 +139,23 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import cross_val_score
 
-get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve
 from sklearn.metrics import auc
 from scipy import interp
 import time
 
-now = time.strftime("%Y-%m-%d-%H_%M_%S",time.localtime(time.time()))
-
-
 print("10-CV")
 tprs=[]
 aucs=[]
 mean_fpr=np.linspace(0,1,1000)
-
-colorlist = ['red','firebrick', 'gold','limegreen','royalblue', 'purple', 'green','magenta', 'blue', 'black']
-
 AllResult = []
-
-
 for i in range(10):
 
     X_train,X_test = data_train[i],data_test[i]
     Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
     best_RandomF = RandomForestClassifier(n_estimators=999,n_jobs=-1)
-    print('Strat training')
     best_RandomF.fit(np.array(X_train), np.array(Y_train))
-
     y_score0 = best_RandomF.predict(np.array(X_test))
     y_score_RandomF = best_RandomF.predict_proba(np.array(X_test))
     fpr,tpr,thresholds=roc_curve(Y_test,y_score_RandomF[:,1])
