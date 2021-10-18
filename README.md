@@ -11,7 +11,7 @@ Contain  B-Dataset and F-Dataset
 
 ### HINGRL.py
 To predict drug-disease associations by HINGRL, run
-  - python HINGRL.py
+  - python HINGRL.py -d 1 -f 10         
 
 ### Requirements
 HINGRL is tested to work under Python 3.6.2  
