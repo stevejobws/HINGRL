@@ -6,7 +6,7 @@ Contain B-Dataset and F-Dataset
 
 ### 'compareModel' directory
 Contain the prediction results of each baseline models is training on B-Dataset and F-Dataset
-Please the code of LAGCN  https://github.com/storyandwine/LAGCN
+Please refer the code of LAGCN [here] (https://github.com/storyandwine/LAGCN); please refer the code of DTINet [here] (https://github.com/luoyunan/DTINet); please refer the code of deepDR [here] (https://github. com/ChengF-Lab/deepDR).
 
 ### Install OpenNE
 1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) configuration environment
