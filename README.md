@@ -4,6 +4,9 @@
 ### 'data' directory
 Contain B-Dataset and F-Dataset
 
+### 'compareModel' directory
+Contain the prediction results of each baseline models is training on B-Dataset and F-Dataset
+
 ### Install OpenNE
 1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) configuration environment
 2. To obtained drug and disease features by deepWalk, run
