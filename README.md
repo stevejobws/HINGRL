@@ -9,7 +9,7 @@ Contain the prediction results of each baseline models is training on B-Dataset 
 
 ### Install OpenNE
 1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) configuration environment
-2. To obtained drug and disease features by deepWalk, run
+2. To obtained drug and disease network representation by deepWalk, run
   - python -m openne --method deepWalk --input data/AllDrDiIs_train.txt --graph-format edgelist --output AllEmbedding_DeepWalk.txt --representation-size 64
 
 ### HINGRL.py
