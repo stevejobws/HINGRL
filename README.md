@@ -1,5 +1,5 @@
 # HINGRL
-## paper "HINGRL: Predicting Drug-disease Associations with Graph Representation Learning on Heterogeneous Information Networks"
+## Paper "HINGRL: Predicting Drug-disease Associations with Graph Representation Learning on Heterogeneous Information Networks"
 
 ### 'data' directory
 Contain B-Dataset and F-Dataset
@@ -16,7 +16,7 @@ Please refer the code of LAGCN [here](https://github.com/storyandwine/LAGCN); pl
 ### HINGRL.py
 To predict drug-disease associations by HINGRL, run
   - python HINGRL.py -d 1 -f 10 
-  - -d is dataset selection, which B-Dataset is represented as 1 and F-Dataset is represented as 2. -f is fold number of cross-validation, and default is 10.   
+  - -d is dataset selection, which B-Dataset is represented as 1 and F-Dataset is represented as 2. -f is fold number of cross-validation, and its default is 10.   
 
 ### Options
 See help for the other available options to use with *HINGRL*
