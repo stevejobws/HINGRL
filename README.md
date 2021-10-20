@@ -4,9 +4,10 @@
 ### 'data' directory
 Contain B-Dataset and F-Dataset
 
-### 'compareModel' directory
-Contain the prediction results of each baseline models is training on B-Dataset and F-Dataset
-Please refer the code of LAGCN [here](https://github.com/storyandwine/LAGCN); please refer the code of DTINet [here](https://github.com/luoyunan/DTINet); please refer the code of deepDR [here](https://github.com/ChengF-Lab/deepDR).
+### 'Experimental Results' directory
+1. Contain the prediction results of each baseline models is training on B-Dataset and F-Dataset
+2. Please refer the code of LAGCN [here](https://github.com/storyandwine/LAGCN); please refer the code of DTINet [here](https://github.com/luoyunan/DTINet); please refer the code of deepDR [here](https://github.com/ChengF-Lab/deepDR).
+3. Regarding the setting of parameters involved when running these algorithms, we either explicitly adopt the default setting recommended by their publications or conduct several trials with different settings to obtain the best performance. In which, we refer to [here](https://doi.org/10.1093/bib/bbab319) to use the ontology similarity of diseases as input features when LAGCN trained on the F-Dataset. For DTINet and deepDR, we only changed input dataset as B-Dataset and F-Dataset in the source code. 
 
 ### Install OpenNE
 1. Refer to the [OpenNE](https://github.com/thunlp/OpenNE/tree/pytorch) configuration environment
