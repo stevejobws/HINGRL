@@ -19,20 +19,20 @@ Contain B-Dataset and F-Dataset
 2. To predict drug-disease associations by HINGRL, run
   - python HINGRL.py -d 1 -f 10 
   - -d is dataset selection, which B-Dataset is represented as 1 and F-Dataset is represented as 2. -f is fold number of cross-validation, and its default is 10.
-3. To tune the hyperparameters of each machine learning classifier, run
-  Random Forest Classifier
+3. To tune the hyperparameters of each machine learning classifier, as follwing:
+4. Random Forest Classifier
   - python HINGRL.py -d 1 -f 10 -n 999
   - -d and -f as described above, -n is the number of tree of RandomForestClassifier, and its default is 999.
-  Gaussian Naïve Bayes
+5. Gaussian Naïve Bayes
   - python Gaussian NB.py -d 1 -f 10
   - -d and -f as described above, its hyperparameters are default.
-  K Nearest Neighbor
+6. K Nearest Neighbor
   - python KNN.py -d 1 -f 10 -n 999
   - -d and -f as described above, -n is the number of neighbors, and its default is 9.
-  Logistic Regression
+7. Logistic Regression
   - python LR.py -d 1 -f 10 -p l2
   - -d and -f as described above, -p is regularization parameter, and its default is l2.
-  Support Vector Machine
+8. Support Vector Machine
   - python SVM.py -d 1 -f 10 -k rbf -p l2
   - -d and -f as described above, -k is kernel function and its default is rbf, -p is regularization parameter and its default is l2.
 
