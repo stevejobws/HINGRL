@@ -4,7 +4,7 @@ import numpy as np
 import math
 import random
 import scipy.sparse as sp
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import cross_val_score
@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve
 from sklearn.metrics import auc
 from scipy import interp
+
 
 def partition(ls, size):
     return [ls[i:i + size] for i in range(0, len(ls), size)]
@@ -154,11 +155,10 @@ def main(options):
 
         X_train,X_test = data_train[i],data_test[i]
         Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
-        best_RandomF = RandomForestClassifier(n_estimators=options.tree_number)
-        best_RandomF.fit(np.array(X_train), np.array(Y_train))
-        y_score0 = best_RandomF.predict(np.array(X_test))
-        y_score_RandomF = best_RandomF.predict_proba(np.array(X_test))
-        fpr,tpr,thresholds=roc_curve(Y_test,y_score_RandomF[:,1])
+        best_KNN = KNeighborsClassifier(n_neighbors = options.n_neighbor)
+        best_KNN.fit(np.array(X_train), np.array(Y_train))
+        y_score = best_KNN.predict_proba(np.array(X_test))
+        fpr,tpr,thresholds=roc_curve(Y_test,y_score[:,1])
         tprs.append(interp(mean_fpr,fpr,tpr))
         tprs[-1][0]=0.0
         #auc
@@ -183,12 +183,10 @@ if __name__ == '__main__':
                       dest='fold_num', default=10, type='int',
                       help=('The fold number of cross-validation '
                             '(default: 10)'))
-
-    parser.add_option('-n', '--tree number', action='store',
-                      dest='tree_number', default=999, type='int',
-                      help=('The number of tree of RandomForestClassifier '
-                            '(default: 999)'))
-
+    parser.add_option('-n', '--n_neighbors', action='store',
+                      dest='n_neighbors', default=9, type='int',
+                      help=('The number of neighbors '
+                            '(default: 9)'))
     options, args = parser.parse_args()
     print(options)
     sys.exit(main(options))
