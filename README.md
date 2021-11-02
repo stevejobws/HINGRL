@@ -35,6 +35,7 @@ Contain B-Dataset and F-Dataset
 8. Support Vector Machine
   - python SVM.py -d 1 -f 10 -k rbf -p l2
   - -d and -f as described above, -k is kernel function and its default is rbf, -p is regularization parameter and its default is l2.
+9. Note that about more hyperparameters how to select it, please reference [sklearn](https://scikit-learn.org/).
 
 ### Options
 See help for the other available options to use with *HINGRL*
