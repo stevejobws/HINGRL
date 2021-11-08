@@ -155,7 +155,7 @@ def main(options):
 
         X_train,X_test = data_train[i],data_test[i]
         Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
-        best_GNB = GaussianNB() # the parameter is default
+        best_GNB = GaussianNB(priors=None, var_smoothing=option.var_smoothing)
         best_GNB.fit(np.array(X_train), np.array(Y_train))
         y_score = best_GNB.predict_proba(np.array(X_test))
         fpr,tpr,thresholds=roc_curve(Y_test,y_score[:,1])
@@ -183,6 +183,10 @@ if __name__ == '__main__':
                       dest='fold_num', default=10, type='int',
                       help=('The fold number of cross-validation '
                             '(default: 10)'))
+    parser.add_option('-v', '--var_smoothing', action='store',
+                  dest='var_smoothing', default=1e-9, type='float',
+                  help=('The var_smoothing'
+                        '(default: 1e-9)'))
 
     options, args = parser.parse_args()
     print(options)
