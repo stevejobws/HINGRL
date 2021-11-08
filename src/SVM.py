@@ -154,7 +154,7 @@ def main(options):
 
         X_train,X_test = data_train[i],data_test[i]
         Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
-        best_SVC = SVC(kernel=options.kernel,probability=options.probability)
+        best_SVC = SVC(kernel=options.kernel,probability=options.probability, C=1.0, degree=3, gamma='scale', coef0=0.0, tol=1e-3, cache_size=200, max_iter=-1)
         best_SVC.fit(np.array(X_train), np.array(Y_train))
         y_score = best_SVC.predict_proba(np.array(X_test))
         fpr,tpr,thresholds=roc_curve(Y_test,y_score[:,1])
