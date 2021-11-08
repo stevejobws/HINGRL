@@ -19,7 +19,7 @@ Contain B-Dataset and F-Dataset
 2. To predict drug-disease associations by HINGRL, run
   - python HINGRL.py -d 1 -f 10 
   - -d is dataset selection, which B-Dataset is represented as 1 and F-Dataset is represented as 2. -f is fold number of cross-validation, and its default is 10.
-3. To tune the hyperparameters of each machine learning classifier, as follwing:
+3. How to tune the hyperparameters of each machine learning classifier, we give examples of scripts for each classifier, as shown below. Besides, we present the hyperparameters of all classifiers for HINGRL in Table 1.
 4. Random Forest Classifier
   - python HINGRL.py -d 1 -f 10 -n 999
   - -d and -f as described above, -n is the number of tree of RandomForestClassifier, and its default is 999.
