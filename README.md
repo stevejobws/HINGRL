@@ -36,7 +36,10 @@ Contain B-Dataset and F-Dataset
   - python SVM.py -d 1 -f 10 -k rbf -p l2
   - -d and -f as described above, -k is kernel function and its default is rbf, -p is regularization parameter and its default is l2.
 9. Note that about more hyperparameters how to select it, please reference [sklearn](https://scikit-learn.org/).
-
+### Table 1
+| Classifiers | Hyperparameters |
+| ----- | ----- |
+| Gaussian NB | priors=None, var_smoothing=1e-9 |
 ### Options
 See help for the other available options to use with *HINGRL*
   - python HINGRL.py --help
