@@ -24,8 +24,8 @@ Contain B-Dataset and F-Dataset
   - python HINGRL.py -d 1 -f 10 -n 999
   - -d and -f as described above, -n is the number of tree of RandomForestClassifier, and its default is 999.
 5. Gaussian Naïve Bayes
-  - python Gaussian NB.py -d 1 -f 10
-  - -d and -f as described above, its hyperparameters are default.
+  - python Gaussian NB.py -d 1 -f 10 -v 1e-9
+  - -d and -f as described above, -v is var_smooothing, and its default is 1e-9.
 6. K Nearest Neighbor
   - python KNN.py -d 1 -f 10 -n 999
   - -d and -f as described above, -n is the number of neighbors, and its default is 9.
