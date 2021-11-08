@@ -154,7 +154,7 @@ def main(options):
 
         X_train,X_test = data_train[i],data_test[i]
         Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
-        best_Logistic = LogisticRegression(penalty=options.penalty)
+        best_Logistic = LogisticRegression(penalty=options.penalty, dual=False, tol=1e-4, C=1.0, fit_intercept=True, intercept_scaling=1, solver='lbfgs', max_iter=100)
         best_Logistic.fit(np.array(X_train), np.array(Y_train))
         y_score = best_Logistic.predict_proba(np.array(X_test))
         fpr,tpr,thresholds=roc_curve(Y_test,y_score[:,1])
