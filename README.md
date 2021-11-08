@@ -40,6 +40,11 @@ Contain B-Dataset and F-Dataset
 | Classifiers | Hyperparameters |
 | ----- | ----- |
 | Gaussian NB | priors=None, var_smoothing=1e-9 |
+| SVM | C=1.0, kernel='rbf', degree=3, gamma='scale', coef0=0.0, probability=True, tol=1e-3, cache_size=200, max_iter=-1 |
+| LR | penalty='l2', dual=False, tol=1e-4, C=1.0, fit_intercept=True, intercept_scaling=1, solver='lbfgs', max_iter=100 |
+| KNN | n_neighbors=9, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski' |
+| RF | n_estimators=999 |
+
 ### Options
 See help for the other available options to use with *HINGRL*
   - python HINGRL.py --help
