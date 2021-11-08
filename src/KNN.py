@@ -155,7 +155,7 @@ def main(options):
 
         X_train,X_test = data_train[i],data_test[i]
         Y_train,Y_test = np.array(labels_train[i]),np.array(labels_test[i])
-        best_KNN = KNeighborsClassifier(n_neighbors = options.n_neighbor)
+        best_KNN = KNeighborsClassifier(n_neighbors = options.n_neighbor, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski)
         best_KNN.fit(np.array(X_train), np.array(Y_train))
         y_score = best_KNN.predict_proba(np.array(X_test))
         fpr,tpr,thresholds=roc_curve(Y_test,y_score[:,1])
